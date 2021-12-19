@@ -1,5 +1,22 @@
 .app-container {
 	max-width: 800px;
 	margin: 0 auto;
-	height: 100vh;
+	background: #eee;
+	box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+	border: 1px solid #aaa;
+	border-radius: 3px;
+}
+.app-title {
+	margin: 0;
+	padding: 10px 0;
+	text-align: center;
+	letter-spacing: 1px;
+	font-family: roboto, 'Helvetica Neue';
+	font-weight: lighter;
+}
+.app-info {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	margin: 20px 0;
 }
