@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import './App.css';
 
+// Axios
+import axios from 'axios';
+
 // Components
 import Input from './components/input/input.component';
+import QuestionForm from './components/question-form/question-form.component';
 import Question from './components/question/question.component';
 
 // Helper Obj
@@ -11,6 +15,21 @@ const surveyObject = { title: '', deadline: '', questions: [] };
 // Code
 const App = () => {
 	const [survey, setSurvey] = useState(surveyObject);
+
+	const handleSubmit = async () => {
+		try {
+			const results = await axios.post(
+				'http://projectest.xyz/api/surveys',
+				survey
+			);
+			alert(results.data.message);
+			setSurvey(surveyObject);
+		} catch (error) {
+			console.error(error.message);
+			alert('Doslo je do greske');
+			setSurvey(surveyObject);
+		}
+	};
 
 	const setSurveyHandler = (name, value) => {
 		let newValue;
@@ -51,28 +70,26 @@ const App = () => {
 			</div>
 			<div className='app-body'>
 				<label className='questions-label'>Survey Questions:</label>
-				{survey['questions'].map((question, i) => {
-					return (
-						<div key={i} className='single-question-info'>
-							<label className='single-q-label'>
-								<label className='text-bold'>{i + 1 + '. '}</label>
-								{question.title}
-							</label>
-							<label className='single-a-label'>
-								<label className='text-regular'>Answers:</label>
-								{question.answers.map((answer) => `  "${answer}"  `)}
-							</label>
-						</div>
-					);
-				})}
+				{survey['questions'].map((question, i) => (
+					<Question key={i} num={i + 1} {...question} />
+				))}
 			</div>
 			<div className='app-questions'>
-				<Question
+				<QuestionForm
 					addQuestion={(value) => setSurveyHandler('question', value)}
 					doesPrevQuesionExist={survey.questions.length > 0}
 					duplicateQuestion={() => setSurveyHandler('duplicate-question')}
 				/>
 			</div>
+			{survey.title !== '' &&
+			survey.deadline !== '' &&
+			survey.questions.length > 0 ? (
+				<button onClick={handleSubmit} className='submit-btn'>
+					Submit Form
+				</button>
+			) : (
+				<></>
+			)}
 		</div>
 	);
 };
