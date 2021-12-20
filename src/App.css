@@ -53,3 +53,8 @@
 	cursor: pointer;
 	background: #0047ab;
 }
+.disabled-btn {
+	background: rgb(139, 139, 139) !important;
+	color: #555 !important;
+	cursor: default !important;
+}

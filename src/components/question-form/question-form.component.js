@@ -65,20 +65,25 @@ const QuestionFormComponent = ({
 			</div>
 
 			<div className='submit-div'>
-				{answers.length >= 1 && question !== '' ? (
-					<button onClick={handleSubmit} className='submit-question'>
-						Add to Survey
-					</button>
-				) : (
-					<></>
-				)}
-				{doesPrevQuesionExist ? (
-					<button onClick={duplicateQuestion} className='submit-question'>
-						Duplicate Last Question
-					</button>
-				) : (
-					<></>
-				)}
+				<button
+					disabled={answers.length >= 1 && question !== '' ? false : true}
+					onClick={handleSubmit}
+					className={`submit-question ${
+						answers.length >= 1 && question !== '' ? '' : 'disabled-btn'
+					}`}
+				>
+					Add to Survey
+				</button>
+
+				<button
+					disabled={doesPrevQuesionExist ? false : true}
+					onClick={duplicateQuestion}
+					className={`submit-question ${
+						doesPrevQuesionExist ? '' : 'disabled-btn'
+					}`}
+				>
+					Duplicate Last Question
+				</button>
 			</div>
 		</div>
 	);

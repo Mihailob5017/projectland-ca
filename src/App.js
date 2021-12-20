@@ -80,16 +80,26 @@ const App = () => {
 					doesPrevQuesionExist={survey.questions.length > 0}
 					duplicateQuestion={() => setSurveyHandler('duplicate-question')}
 				/>
-			</div>
-			{survey.title !== '' &&
-			survey.deadline !== '' &&
-			survey.questions.length > 0 ? (
-				<button onClick={handleSubmit} className='submit-btn'>
-					Submit Form
-				</button>
-			) : (
-				<></>
-			)}
+			</div>{' '}
+			<button
+				onClick={handleSubmit}
+				disabled={
+					survey.title !== '' &&
+					survey.deadline !== '' &&
+					survey.questions.length > 0
+						? false
+						: true
+				}
+				className={`submit-btn ${
+					survey.title !== '' &&
+					survey.deadline !== '' &&
+					survey.questions.length > 0
+						? ''
+						: 'disabled-btn'
+				}`}
+			>
+				Submit Form
+			</button>
 		</div>
 	);
 };
